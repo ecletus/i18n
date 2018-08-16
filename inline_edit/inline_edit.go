@@ -4,19 +4,20 @@ import (
 	"fmt"
 	"html/template"
 
-	"github.com/qor/admin"
-	"github.com/qor/i18n"
+	"github.com/aghape/admin"
+	"github.com/aghape/i18n"
+	"github.com/aghape/aghape"
 )
 
 func init() {
-	admin.RegisterViewPath("github.com/qor/i18n/inline_edit/views")
+	qor.IfDev(func() {
+		admin.RegisterViewPath("github.com/aghape/i18n/inline_edit/views")
+	})
 }
 
 // FuncMap generate func map for inline edit
-func FuncMap(I18n *i18n.I18n, locale string, enableInlineEdit bool) template.FuncMap {
-	return template.FuncMap{
-		"t": InlineEdit(I18n, locale, enableInlineEdit),
-	}
+func FuncMap(funcMap *template.FuncMap, locale string, enableInlineEdit bool) {
+	*funcMap["t"] = InlineEdit(funcMap["t"], locale, enableInlineEdit)
 }
 
 // InlineEdit enable inline edit

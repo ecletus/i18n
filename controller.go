@@ -1,8 +1,8 @@
 package i18n
 
 import (
-	"github.com/qor/admin"
-	"github.com/qor/qor/utils"
+	"github.com/aghape/admin"
+	"github.com/aghape/aghape/utils"
 )
 
 type i18nController struct {

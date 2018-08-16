@@ -12,12 +12,12 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/qor/admin"
-	"github.com/qor/cache"
-	"github.com/qor/cache/memory"
-	"github.com/qor/qor"
-	"github.com/qor/qor/resource"
-	"github.com/qor/qor/utils"
+	"github.com/aghape/admin"
+	"github.com/aghape/cache"
+	"github.com/aghape/cache/memory"
+	"github.com/aghape/aghape"
+	"github.com/aghape/aghape/resource"
+	"github.com/aghape/aghape/utils"
 	"github.com/theplant/cldr"
 )
 
@@ -42,6 +42,7 @@ func (I18n) ResourceName() string {
 
 // Backend defined methods that needs for translation backend
 type Backend interface {
+	LoadContent([]byte) ([]*Translation, error)
 	LoadTranslations() []*Translation
 	SaveTranslation(*Translation) error
 	DeleteTranslation(*Translation) error
@@ -92,6 +93,45 @@ func (i18n *I18n) LoadTranslations() map[string]map[string]*Translation {
 		}
 	}
 	return translations
+}
+
+func getExtension(fileName string) (extension string) {
+	ar := strings.SplitAfterN(fileName, ".", 2)
+	if len(ar) == 2 {
+		extension = "." + ar[1]
+	} else {
+		extension = "No Extension"
+	}
+	return extension
+}
+
+// AddTranslation add translation
+func (i18n *I18n) LoadFromDirectory(backend Backend, extension string, path... string) {
+	for _, p := range path {
+		files, err := ioutil.ReadDir(p)
+		if err != nil {
+			os.Stderr.WriteString(fmt.Sprintln("i18n.LoadFromDirectory: Failed to scan '", p, "': ", err))
+			continue
+		}
+
+		for _, f := range files {
+			if !f.IsDir() {
+				ext := getExtension(f.Name())
+				if ext == extension {
+					filePath := filepath.Join(p, f.Name())
+					content, err := ioutil.ReadFile(filePath)
+					if err == nil {
+						translations, _ := backend.LoadContent(content)
+						for _, translation := range translations {
+							i18n.AddTranslation(translation)
+						}
+					} else {
+						os.Stderr.WriteString(fmt.Sprintln("i18n.LoadFromDirectory: Failed to load '", filePath, "': ", err))
+					}
+				}
+			}
+		}
+	}
 }
 
 // AddTranslation add translation
@@ -205,13 +245,13 @@ func RenderInlineEditAssets(isIncludeJQuery bool, isIncludeExtendAssetLib bool) 
 		}
 
 		if isIncludeExtendAssetLib {
-			if extendLib, err := ioutil.ReadFile(filepath.Join(gopath, "src/github.com/qor/i18n/views/themes/i18n/inline-edit-libs.tmpl")); err == nil {
+			if extendLib, err := ioutil.ReadFile(filepath.Join(gopath, "src/github.com/aghape/i18n/views/themes/i18n/inline-edit-libs.tmpl")); err == nil {
 				content += string(extendLib)
 			} else {
 				hasError = true
 			}
 
-			if css, err := ioutil.ReadFile(filepath.Join(gopath, "src/github.com/qor/i18n/views/themes/i18n/assets/stylesheets/i18n-inline.css")); err == nil {
+			if css, err := ioutil.ReadFile(filepath.Join(gopath, "src/github.com/aghape/i18n/views/themes/i18n/assets/stylesheets/i18n-inline.css")); err == nil {
 				content += fmt.Sprintf("<style>%s</style>", string(css))
 			} else {
 				hasError = true
@@ -219,7 +259,7 @@ func RenderInlineEditAssets(isIncludeJQuery bool, isIncludeExtendAssetLib bool) 
 
 		}
 
-		if js, err := ioutil.ReadFile(filepath.Join(gopath, "src/github.com/qor/i18n/views/themes/i18n/assets/javascripts/i18n-inline.js")); err == nil {
+		if js, err := ioutil.ReadFile(filepath.Join(gopath, "src/github.com/aghape/i18n/views/themes/i18n/assets/javascripts/i18n-inline.js")); err == nil {
 			content += fmt.Sprintf("<script type=\"text/javascript\">%s</script>", string(js))
 		} else {
 			hasError = true
@@ -410,7 +450,7 @@ func (i18n *I18n) ConfigureQorResource(res resource.Resourcer) {
 		router.Post(res.ToParam(), controller.Update, &admin.RouteConfig{Resource: res})
 		router.Put(res.ToParam(), controller.Update, &admin.RouteConfig{Resource: res})
 
-		res.GetAdmin().RegisterViewPath("github.com/qor/i18n/views")
+		res.GetAdmin().RegisterViewPath("github.com/aghape/i18n/views")
 	}
 }
 

@@ -9,15 +9,15 @@ import (
 	"github.com/fatih/color"
 	"github.com/jinzhu/gorm"
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/qor/admin"
-	"github.com/qor/i18n"
-	"github.com/qor/i18n/backends/database"
-	"github.com/qor/i18n/exchange_actions"
-	"github.com/qor/media"
-	"github.com/qor/media/oss"
-	"github.com/qor/qor"
-	"github.com/qor/qor/test/utils"
-	"github.com/qor/worker"
+	"github.com/aghape/admin"
+	"github.com/aghape/i18n"
+	"github.com/aghape/i18n/backends/database"
+	"github.com/aghape/i18n/exchange_actions"
+	"github.com/aghape/media"
+	"github.com/aghape/media/oss"
+	"github.com/aghape/aghape"
+	"github.com/aghape/aghape/test/utils"
+	"github.com/aghape/worker"
 )
 
 var db *gorm.DB
@@ -32,7 +32,7 @@ func init() {
 func reset() {
 	db.DropTable(&database.Translation{})
 	database.New(db)
-	Admin := admin.New(&qor.Config{DB: db})
+	Admin := admin.New(&qor.NewConfig(db))
 	Worker = worker.New()
 	Admin.AddResource(Worker)
 	I18n = i18n.New(database.New(db))

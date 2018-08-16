@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/jinzhu/gorm"
-	"github.com/qor/i18n"
+	"github.com/aghape/i18n"
 )
 
 // Translation is a struct used to save translations into databae
@@ -32,6 +32,10 @@ type Backend struct {
 func (backend *Backend) LoadTranslations() (translations []*i18n.Translation) {
 	backend.DB.Find(&translations)
 	return translations
+}
+
+func (backend *Backend) LoadContent(content []byte) (translations []*i18n.Translation, err error)  {
+	return
 }
 
 // SaveTranslation save translation into DB backend
