@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/fatih/color"
-	"github.com/jinzhu/gorm"
+	"github.com/moisespsena-go/aorm"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/aghape/admin"
 	"github.com/aghape/i18n"
@@ -20,7 +20,7 @@ import (
 	"github.com/aghape/worker"
 )
 
-var db *gorm.DB
+var db *aorm.DB
 var Worker *worker.Worker
 var I18n *i18n.I18n
 

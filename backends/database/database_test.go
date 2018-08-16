@@ -3,13 +3,13 @@ package database_test
 import (
 	"testing"
 
-	"github.com/jinzhu/gorm"
+	"github.com/moisespsena-go/aorm"
 	"github.com/aghape/i18n"
 	"github.com/aghape/i18n/backends/database"
 	"github.com/aghape/aghape/test/utils"
 )
 
-var db *gorm.DB
+var db *aorm.DB
 var backend i18n.Backend
 
 func init() {
