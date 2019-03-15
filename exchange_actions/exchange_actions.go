@@ -10,10 +10,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/aghape/admin"
-	"github.com/aghape/i18n"
-	"github.com/aghape/media/oss"
-	"github.com/aghape/worker"
+	"github.com/ecletus/admin"
+	"github.com/ecletus/i18n"
+	"github.com/ecletus/media/oss"
+	"github.com/ecletus/worker"
 )
 
 type ExportTranslationArgument struct {
@@ -33,7 +33,7 @@ func RegisterExchangeJobs(I18n *i18n.I18n, Worker *worker.Worker) {
 	}
 
 	Admin := I18n.Resource.GetAdmin()
-	Admin.RegisterViewPath("github.com/aghape/i18n/exchange_actions/views")
+	Admin.RegisterViewPath("github.com/ecletus/i18n/exchange_actions/views")
 
 	// Export Translations
 	exportTranslationResource := Admin.NewResource(&ExportTranslationArgument{})

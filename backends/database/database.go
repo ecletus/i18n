@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/moisespsena-go/aorm"
-	"github.com/aghape/i18n"
+	"github.com/ecletus/i18n"
 )
 
 // Translation is a struct used to save translations into databae

@@ -4,9 +4,9 @@ import (
 	"testing"
 
 	"github.com/moisespsena-go/aorm"
-	"github.com/aghape/i18n"
-	"github.com/aghape/i18n/backends/database"
-	"github.com/aghape/aghape/test/utils"
+	"github.com/ecletus/i18n"
+	"github.com/ecletus/i18n/backends/database"
+	"github.com/ecletus/ecletus/test/utils"
 )
 
 var db *aorm.DB

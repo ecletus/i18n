@@ -3,7 +3,7 @@ package yaml_test
 import (
 	"testing"
 
-	"github.com/aghape/i18n/backends/yaml"
+	"github.com/ecletus/i18n/backends/yaml"
 )
 
 func TestLoadTranslations(t *testing.T) {

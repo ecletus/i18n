@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/aghape/i18n"
+	"github.com/ecletus/i18n"
 	"gopkg.in/yaml.v2"
 )
 

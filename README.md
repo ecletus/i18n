@@ -2,7 +2,7 @@
 
 I18n provides internationalization support for your application, it supports different storage solutions (*backends*) including a SQL database and YAML.
 
-[![GoDoc](https://godoc.org/github.com/aghape/i18n?status.svg)](https://godoc.org/github.com/aghape/i18n)
+[![GoDoc](https://godoc.org/github.com/ecletus/i18n?status.svg)](https://godoc.org/github.com/ecletus/i18n)
 
 ## Documentation
 

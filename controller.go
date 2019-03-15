@@ -1,8 +1,8 @@
 package i18n
 
 import (
-	"github.com/aghape/admin"
-	"github.com/aghape/aghape/utils"
+	"github.com/ecletus/admin"
+	"github.com/ecletus/ecletus/utils"
 )
 
 type i18nController struct {

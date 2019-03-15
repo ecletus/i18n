@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"html/template"
 
-	"github.com/aghape/admin"
-	"github.com/aghape/i18n"
-	"github.com/aghape/aghape"
+	"github.com/ecletus/admin"
+	"github.com/ecletus/i18n"
+	"github.com/ecletus/ecletus"
 )
 
 func init() {
 	qor.IfDev(func() {
-		admin.RegisterViewPath("github.com/aghape/i18n/inline_edit/views")
+		admin.RegisterViewPath("github.com/ecletus/i18n/inline_edit/views")
 	})
 }
 
